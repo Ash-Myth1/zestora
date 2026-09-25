@@ -71,10 +71,15 @@
         /* ── Floating nav ── */
         .site-nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 1.75rem 2.5rem;
+            padding: 1.25rem 1.5rem;
             display: flex; justify-content: space-between; align-items: center;
             mix-blend-mode: difference; color: #fff;
             pointer-events: none;
+        }
+        @media (min-width: 768px) {
+            .site-nav {
+                padding: 1.75rem 2.5rem;
+            }
         }
         .site-nav > * { pointer-events: auto; }
         .site-nav .wordmark {
@@ -205,25 +210,25 @@
                 <h1 class="mb-6" aria-label="Zestora">
                     <span class="sr-only">Zestora</span>
                     <span class="inline-flex overflow-hidden" aria-hidden="true">
-                        <span class="hero-letter text-[15vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">Z</span>
+                        <span class="hero-letter text-[11.5vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">Z</span>
                     </span>
                     <span class="inline-flex overflow-hidden" aria-hidden="true">
-                        <span class="hero-letter text-[15vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">E</span>
+                        <span class="hero-letter text-[11.5vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">E</span>
                     </span>
                     <span class="inline-flex overflow-hidden" aria-hidden="true">
-                        <span class="hero-letter text-[15vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">S</span>
+                        <span class="hero-letter text-[11.5vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">S</span>
                     </span>
                     <span class="inline-flex overflow-hidden" aria-hidden="true">
-                        <span class="hero-letter text-[15vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">T</span>
+                        <span class="hero-letter text-[11.5vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">T</span>
                     </span>
                     <span class="inline-flex overflow-hidden" aria-hidden="true">
-                        <span class="hero-letter text-[15vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">O</span>
+                        <span class="hero-letter text-[11.5vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">O</span>
                     </span>
                     <span class="inline-flex overflow-hidden" aria-hidden="true">
-                        <span class="hero-letter text-[15vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">R</span>
+                        <span class="hero-letter text-[11.5vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">R</span>
                     </span>
                     <span class="inline-flex overflow-hidden" aria-hidden="true">
-                        <span class="hero-letter text-[15vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">A</span>
+                        <span class="hero-letter text-[11.5vw] md:text-[11vw] lg:text-[9vw] font-semibold tracking-[0.15em] leading-none">A</span>
                     </span>
                 </h1>
                 <p class="hero-sub anim text-sm md:text-base font-medium tracking-[0.25em] uppercase opacity-60">
@@ -241,12 +246,12 @@
         <!-- ══════════════════════════════════════════
              BRAND STORY
              ══════════════════════════════════════════ -->
-        <section class="color-zone py-40 md:py-56 px-6 md:px-12 max-w-6xl mx-auto" data-palette="0">
-            <div class="space-y-32 md:space-y-44">
+        <section class="color-zone py-24 md:py-56 px-6 md:px-12 max-w-6xl mx-auto" data-palette="0">
+            <div class="space-y-20 md:space-y-44">
                 <div class="max-w-3xl">
                     <span class="section-label anim block mb-8" style="color: var(--accent-color)">Our Vision</span>
                     <div class="divider anim mb-10"></div>
-                    <p class="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.15] anim">
+                    <p class="text-2xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.15] anim">
                         To redefine refreshment without compromise — blending contemporary vibrant tastes with pure, natural balance.
                     </p>
                 </div>
@@ -254,7 +259,7 @@
                 <div class="max-w-3xl md:ml-auto md:text-right">
                     <span class="section-label anim block mb-8" style="color: var(--accent-color)">Our Mission</span>
                     <div class="divider anim mb-10 md:ml-auto"></div>
-                    <p class="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.15] anim">
+                    <p class="text-2xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.15] anim">
                         To craft distinct botanical and energetic beverages that perfectly fit your every rhythm and mood.
                     </p>
                 </div>
@@ -266,7 +271,7 @@
              ══════════════════════════════════════════ -->
         <section class="pt-20 pb-16 md:pt-32 md:pb-24 px-6 text-center">
             <span class="section-label block mb-5 anim">The Lineup</span>
-            <h2 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-none anim">
+            <h2 class="text-4xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-none anim">
                 Meet your match.
             </h2>
         </section>
@@ -285,7 +290,7 @@
                 <!-- Copy -->
                 <div class="w-full md:w-[45%] md:pl-4">
                     <span class="section-label block mb-4 anim" style="color: var(--accent-color)">001</span>
-                    <h3 class="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-5 anim">NIRO</h3>
+                    <h3 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-5 anim">NIRO</h3>
                     <p class="text-xl md:text-2xl font-light leading-relaxed opacity-80 mb-8 anim">
                         Fruit, fizz,<br>your kind of fun.
                     </p>
@@ -319,7 +324,7 @@
                 <!-- Copy -->
                 <div class="w-full md:w-[45%] md:pr-4">
                     <span class="section-label block mb-4 anim" style="color: var(--accent-color)">002</span>
-                    <h3 class="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-5 anim">KOBA</h3>
+                    <h3 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-5 anim">KOBA</h3>
                     <p class="text-xl md:text-2xl font-light leading-relaxed opacity-80 mb-8 anim">
                         Coffee with a kick<br>of refreshment.
                     </p>
@@ -353,7 +358,7 @@
                         <span class="badge">Coming Soon</span>
                     </div>
                     <span class="section-label block mb-4 anim" style="color: var(--accent-color)">003</span>
-                    <h3 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-5 anim">ZESTY<br>ज़ेन</h3>
+                    <h3 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-5 anim">ZESTY<br>ज़ेन</h3>
                     <p class="text-xl md:text-2xl font-light leading-relaxed opacity-80 mb-8 anim">
                         Sweetness,<br>with a little calm.
                     </p>
