@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zestora | A new era of refreshment</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 
+         * Dynamic Color Variables (60-30-10 Rule)
+         * These are manipulated by GSAP to create smooth, Apple-like background transitions.
+         */
+        :root {
+            --bg-c1: #F4D8D8;       /* 60% Base Gradient Start */
+            --bg-c2: #D6E5D8;       /* 60% Base Gradient End */
+            --text-color: #2A3B32;  /* 30% Primary Text */
+            --accent-color: #E0A9A9;/* 10% Accent */
+        }
+
+        * {
+            scroll-behavior: auto !important;
+        }
+
+        body {
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-c2); /* Fallback */
+            overflow-x: hidden;
+            transition: color 0.5s ease;
+        }
+
+        /* Fixed dynamic background layer */
+        .dynamic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: linear-gradient(135deg, var(--bg-c1), var(--bg-c2));
+        }
+
+        /* Organic noise overlay for natural vibes */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.25;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        /* Scrollbar customization */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--text-color);
+            border-radius: 10px;
+            opacity: 0.5;
+        }
+
+        /* GSAP Initial States */
+        .gsap-reveal {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .img-wrapper {
+            clip-path: inset(15% 15% 15% 15% round 32px);
+            transform: scale(0.95);
+            will-change: transform, clip-path;
+        }
+        
+        .premium-shadow {
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.25), 
+                        0 20px 30px -10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Utility classes bound to custom properties */
+        .dynamic-text { color: var(--text-color); }
+        .dynamic-border { border-color: var(--accent-color); }
+        .dynamic-bg-accent { background-color: var(--accent-color); color: var(--bg-c1); }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .vibe-tag {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            border: 1.5px solid var(--accent-color);
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+        }
+        .vibe-tag:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-c1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px var(--accent-color);
+        }
+
+        @keyframes scrollLine {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-white">
+
+    <!-- Background Layers -->
+    <div class="dynamic-bg"></div>
+    <div class="noise-overlay"></div>
+
+    <main>
+        <!-- Hero Section (Palette 0: Pink/Green) -->
+        <section class="color-section relative w-full min-h-[100svh] flex flex-col items-center justify-center px-6 pt-10" data-palette="0">
+            <div class="max-w-4xl mx-auto flex flex-col items-center text-center z-10">
+                <!-- Logo Image -->
+                <div class="hero-item gsap-reveal mb-10 relative w-48 md:w-64 aspect-[2/3] rounded-3xl overflow-hidden premium-shadow border-[4px] border-white/20">
+                    <img src="logo.jpeg" alt="Zestora Logo" class="w-full h-full object-cover">
+                </div>
+                
+                <!-- Headline -->
+                <h1 class="hero-item gsap-reveal text-6xl md:text-8xl lg:text-9xl font-serif italic tracking-tight leading-[0.95] mb-6 drop-shadow-sm">
+                    A new era <br/> of refreshment.
+                </h1>
+                <p class="hero-item gsap-reveal text-lg md:text-2xl font-light tracking-wide opacity-80 max-w-xl mt-4">
+                    Scroll to discover nature's balance.
+                </p>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center hero-item gsap-reveal">
+                <div class="w-[1px] h-20 bg-current opacity-20 relative overflow-hidden">
+                    <div class="w-full h-full bg-current absolute top-0 left-0 animate-[scrollLine_2s_ease-in-out_infinite]"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision & Mission Section (Inherits Palette 0) -->
+        <section class="color-section py-32 px-6 md:px-12 max-w-6xl mx-auto" data-palette="0">
+            <div class="space-y-40">
+                <div class="max-w-4xl text-left md:ml-12">
+                    <h2 class="text-sm uppercase tracking-[0.3em] font-bold mb-8 reveal-text gsap-reveal" style="color: var(--accent-color)">Our Vision</h2>
+                    <p class="text-4xl md:text-6xl font-serif tracking-normal leading-[1.1] reveal-text gsap-reveal">
+                        To redefine refreshment without compromise, blending contemporary vibrant tastes with pure, natural balance.
+                    </p>
+                </div>
+
+                <div class="max-w-4xl text-left md:ml-auto md:text-right">
+                    <h2 class="text-sm uppercase tracking-[0.3em] font-bold mb-8 reveal-text gsap-reveal" style="color: var(--accent-color)">Our Mission</h2>
+                    <p class="text-4xl md:text-6xl font-serif tracking-normal leading-[1.1] reveal-text gsap-reveal">
+                        To craft distinct botanical and energetic beverages that perfectly fit your every rhythm and mood.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Lineup Wrapper -->
+        <div class="w-full glass-panel rounded-t-[3rem] mt-12 pb-24 border-t border-white/20">
+            
+            <!-- Title -->
+            <div class="text-center pt-32 pb-20 px-6">
+                <h2 class="text-sm uppercase tracking-[0.3em] font-bold mb-4 reveal-text gsap-reveal opacity-70">The Lineup</h2>
+                <h3 class="text-5xl md:text-7xl font-serif italic tracking-tight reveal-text gsap-reveal">Meet your match.</h3>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+                
+                <!-- Product 1: KOBA (Palette 1: Warm Brown) -->
+                <section class="color-section product-row flex flex-col md:flex-row items-center gap-12 md:gap-24 py-24" data-palette="1">
+                    <div class="w-full md:w-1/2 order-2 md:order-1 flex flex-col justify-center">
+                        <h4 class="text-6xl md:text-8xl font-serif font-bold tracking-tight mb-4 product-text gsap-reveal">KOBA</h4>
+                        <p class="text-2xl md:text-4xl font-light opacity-90 mb-8 product-text gsap-reveal leading-tight">
+                            Coffee with a kick <br/>of refreshment.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-8 product-text gsap-reveal">
+                            <span class="vibe-tag">Bold</span>
+                            <span class="vibe-tag">Energetic</span>
+                            <span class="vibe-tag">Urban</span>
+                        </div>
+                        <p class="opacity-80 text-lg md:text-xl leading-relaxed max-w-md product-text gsap-reveal">
+                            Not your traditional iced coffee. A coffee-forward, refreshing, and slightly sweet spark with a rich roasted personality that meets the lively essence of cola.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-1/2 order-1 md:order-2">
+                        <div class="img-wrapper w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden premium-shadow relative border border-white/10">
+                            <img src="koba.jpeg" alt="KOBA Beverage" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Product 2: NIRO (Palette 2: Bright Pink/Orange) -->
+                <section class="color-section product-row flex flex-col md:flex-row items-center gap-12 md:gap-24 py-24" data-palette="2">
+                    <div class="w-full md:w-1/2">
+                        <div class="img-wrapper w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden premium-shadow relative border border-white/10">
+                            <img src="niro.jpeg" alt="NIRO Beverage" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 flex flex-col justify-center text-left">
+                        <h4 class="text-6xl md:text-8xl font-serif font-bold tracking-tight mb-4 product-text gsap-reveal">NIRO</h4>
+                        <p class="text-2xl md:text-4xl font-light opacity-90 mb-8 product-text gsap-reveal leading-tight">
+                            Fruit, fizz, <br/>your kind of fun.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-8 product-text gsap-reveal">
+                            <span class="vibe-tag">Playful</span>
+                            <span class="vibe-tag">Vibrant</span>
+                            <span class="vibe-tag">Social</span>
+                        </div>
+                        <p class="opacity-80 text-lg md:text-xl leading-relaxed max-w-md product-text gsap-reveal">
+                            The complete opposite of KOBA. It's fun first, with better-for-you cues underneath. A fruity, sparkling burst of optimism that lights up any social setting.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Product 3: ZESTY ZEN (Palette 3: Fresh Green) -->
+                <section class="color-section product-row flex flex-col md:flex-row items-center gap-12 md:gap-24 py-24 relative" data-palette="3">
+                    <div class="w-full md:w-1/2 order-2 md:order-1 flex flex-col justify-center">
+                        <div class="product-text gsap-reveal inline-block mb-6">
+                            <span class="dynamic-bg-accent px-5 py-2 rounded-full text-xs font-bold uppercase tracking-[0.2em] shadow-lg">Coming Soon</span>
+                        </div>
+                        <h4 class="text-6xl md:text-8xl font-serif font-bold tracking-tight mb-4 product-text gsap-reveal">ZESTY ज़ेन</h4>
+                        <p class="text-2xl md:text-4xl font-light opacity-90 mb-8 product-text gsap-reveal leading-tight">
+                            Sweetness, <br/>with a little calm.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-8 product-text gsap-reveal">
+                            <span class="vibe-tag">Calm</span>
+                            <span class="vibe-tag">Fresh</span>
+                            <span class="vibe-tag">Balanced</span>
+                        </div>
+                        <p class="opacity-80 text-lg md:text-xl leading-relaxed max-w-md product-text gsap-reveal">
+                            What if a healthy drink didn't feel like punishment? A clean, green-tea based botanical blend bringing contemporary tastes and Indian identity into perfect harmony.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-1/2 order-1 md:order-2">
+                        <div class="img-wrapper w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden premium-shadow relative group border border-white/10">
+                            <div class="absolute inset-0 bg-white/10 backdrop-blur-[4px] z-10 transition duration-1000 group-hover:bg-transparent group-hover:backdrop-blur-none flex items-center justify-center">
+                                <span class="dynamic-text font-medium tracking-widest uppercase text-sm opacity-50 group-hover:opacity-0 transition-opacity duration-500">Reveal</span>
+                            </div>
+                            <img src="comingsoon.jpeg" alt="ZESTY ZEN Beverage" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 glass-panel border-t-0">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-3xl font-serif italic font-medium tracking-tight">Zestora</div>
+            <p class="text-sm opacity-60 font-medium tracking-wide">&copy; 2026 Zestora. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Smooth Scroll & GSAP Scripts -->
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <script>
+        // Register ScrollTrigger first
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initialize Lenis for buttery smooth scrolling
+        const lenis = new Lenis({
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 2,
+        });
+
+        // Sync Lenis with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        // Define Color Palettes (60-30-10 Rule per vibe)
+        const palettes = [
+            // 0: Zestora Logo/Vision
+            { c1: '#FFC5C5', c2: '#C9E4CE', text: '#1E3320', accent: '#D48C70' },
+            // 1: KOBA - Warm Brown
+            { c1: '#2C1A14', c2: '#4A2E20', text: '#F4EFE6', accent: '#D4AF37' },
+            // 2: NIRO - Bright Pink/Orange
+            { c1: '#FF2A54', c2: '#FF7B00', text: '#FFFFFF', accent: '#FFE200' },
+            // 3: ZESTY - Fresh Greens
+            { c1: '#B5D596', c2: '#81B666', text: '#1B3B22', accent: '#F9E79F' }
+        ];
+
+        function initAnimations() {
+            // 1. Dynamic Background Color Transitions
+            const colorSections = document.querySelectorAll('.color-section');
+            
+            colorSections.forEach((section) => {
+                const paletteIndex = section.getAttribute('data-palette');
+                const palette = palettes[paletteIndex];
+                
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: "top 50%", 
+                    end: "bottom 50%",
+                    onEnter: () => animatePalette(palette),
+                    onEnterBack: () => animatePalette(palette)
+                });
+            });
+
+            function animatePalette(p) {
+                gsap.to(document.documentElement, {
+                    '--bg-c1': p.c1,
+                    '--bg-c2': p.c2,
+                    '--text-color': p.text,
+                    '--accent-color': p.accent,
+                    duration: 1.8,
+                    ease: "power2.inOut",
+                    overwrite: "auto"
+                });
+            }
+
+            // 2. Hero Load Animation
+            const heroItems = gsap.utils.toArray('.hero-item');
+            gsap.set(heroItems, { autoAlpha: 0, y: 80, rotation: 2 });
+            
+            gsap.to(heroItems, {
+                duration: 2,
+                y: 0,
+                rotation: 0,
+                autoAlpha: 1,
+                stagger: 0.15,
+                ease: "expo.out",
+                delay: 0.2
+            });
+
+            // 3. Typography Reveals (Vision, Mission, Headings)
+            const revealTexts = gsap.utils.toArray('.reveal-text');
+            revealTexts.forEach((text) => {
+                gsap.set(text, { autoAlpha: 0, y: 80, rotation: 1 });
+                gsap.to(text, {
+                    scrollTrigger: {
+                        trigger: text,
+                        start: "top 90%",
+                        toggleActions: "play none none reverse"
+                    },
+                    duration: 1.8,
+                    y: 0,
+                    rotation: 0,
+                    autoAlpha: 1,
+                    ease: "expo.out"
+                });
+            });
+
+            // 4. Product Lineup Animations (Apple-style smooth scale & reveal)
+            const productRows = gsap.utils.toArray('.product-row');
+            
+            productRows.forEach((row) => {
+                const imgWrapper = row.querySelector('.img-wrapper');
+                const img = row.querySelector('img');
+                
+                if (imgWrapper) {
+                    gsap.set(imgWrapper, { 
+                        autoAlpha: 0,
+                        clipPath: 'inset(25% 25% 25% 25% round 60px)',
+                        scale: 0.85 
+                    });
+                }
+                if (img) {
+                    gsap.set(img, { scale: 1.25 });
+                }
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: row,
+                        start: "top 80%",
+                    }
+                });
+
+                if (imgWrapper) {
+                    tl.to(imgWrapper, {
+                        duration: 2.2,
+                        autoAlpha: 1,
+                        clipPath: 'inset(0% 0% 0% 0% round 40px)',
+                        scale: 1,
+                        ease: "expo.out"
+                    }, 0);
+                }
+
+                // Subtle continuous parallax on image
+                if (img) {
+                    gsap.to(img, {
+                        scrollTrigger: {
+                            trigger: row,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: 1.5
+                        },
+                        scale: 1,
+                        yPercent: 15,
+                        ease: "none"
+                    });
+                }
+
+                // Text Stagger Animation
+                const textElements = row.querySelectorAll('.product-text');
+                gsap.set(textElements, { autoAlpha: 0, x: -40, y: 20 });
+                
+                tl.to(textElements, {
+                    duration: 1.8,
+                    x: 0,
+                    y: 0,
+                    autoAlpha: 1,
+                    stagger: 0.15,
+                    ease: "expo.out"
+                }, 0.2);
+            });
+        }
+
+        // Fix: Use both approaches to guarantee initialization
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAnimations);
+        } else {
+            // DOM already loaded — run immediately
+            initAnimations();
+        }
+    </script>
+</body>
+</html>
